@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: wasm-pack build
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wasm-pack-artifacts
           path: pkg
@@ -43,7 +43,7 @@ jobs:
         env:
           NODE_ENV: prod
       - name: Upload Website
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: website_node
           path: www/dist
