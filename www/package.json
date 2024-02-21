@@ -29,7 +29,8 @@
   "dependencies": {
     "wasm-random-walk": "file:../pkg",
     "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "copy-webpack-plugin": "^12.0.2"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^12.0.2",
