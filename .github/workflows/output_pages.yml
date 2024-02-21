@@ -1,0 +1,69 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Build
+        run: wasm-pack build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wasm-pack-artifacts
+          path: pkg
+      - name: Build Website
+        run: |
+          cd www
+          npm install
+          npm run build
+          cp -r data dist/data
+        env:
+          NODE_ENV: production
+      - name: Upload Website
+        uses: actions/upload-artifact@v2
+        with:
+          name: website_node
+          path: www/dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
+        with:
+          path: pkg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact: website_node
+    # <Not provided for brevity>
+    # At a minimum this job should upload artifacts using actions/upload-pages-artifact
+
+    # Deploy job
+    deploy:
+      # Add a dependency to the build job
+      needs: build
+
+      # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+
+      # Specify runner + deployment step
+      runs-on: ubuntu-latest
+      steps:
