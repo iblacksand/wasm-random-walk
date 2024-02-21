@@ -42,14 +42,23 @@ jobs:
           cp -r data dist/data
         env:
           NODE_ENV: prod
+      - name: Fix permissions
+        run: |
+          chmod -c -R +rX "www/dist" | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
       - name: Upload Website
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: website_node
           path: www/dist
+      # - name: Upload Website
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: website_node
+      #     path: www/dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: website_node
+          artifact_name: github_pages
