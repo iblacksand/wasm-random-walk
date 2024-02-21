@@ -38,11 +38,11 @@ jobs:
         run: |
           cd www
           npm install
-          npm install copy-webpack-plugin --save-dev
           npm run build
           cp -r data dist/data
         env:
           NODE_ENV: prod
+      - name: Upload Website
         uses: actions/upload-artifact@v2
         with:
           name: website_node
