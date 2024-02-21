@@ -51,6 +51,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
         with:
-          path: pkg
           token: ${{ secrets.GITHUB_TOKEN }}
           artifact_name: website_node
