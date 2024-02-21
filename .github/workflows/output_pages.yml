@@ -42,8 +42,7 @@ jobs:
           npm run build
           cp -r data dist/data
         env:
-          NODE_ENV: production
-      - name: Upload Website
+          NODE_ENV: prod
         uses: actions/upload-artifact@v2
         with:
           name: website_node
