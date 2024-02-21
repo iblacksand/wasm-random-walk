@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>WASM Random Walk Demo</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+        />
+    </head>
+
+    <body>
+        <main class="container">
+            <h1>WASM Random Walk</h1>
+            <div class="grid">
+                <div>
+                    <label for="genelist"><small>Gene List:</small></label>
+                    <input type="file" id="genelist" name="genelist" />
+                    <label for="network"><small>Network:</small></label>
+                    <input type="file" id="network" name="network" />
+                    <button id="submit" disabled>Submit</button>
+                </div>
+                <div>
+                    <article>
+                        Upload a gene list (genes separated by new line) and
+                        network (TSV file) to find a 50 gene neighborhood
+                        (includes input)<br /><br />
+                        <b>OR</b><br /><br />
+                        Click the button below to run an example with FunMap and
+                        the following genes taken from L5_M50 .
+                        <ul>
+                            <li>NANS</li>
+                            <li>GMPPA</li>
+                            <li>SEC24D</li>
+                        </ul>
+                    </article>
+                    <button id="example">Run Example</button>
+                </div>
+            </div>
+
+            <div
+                id="results"
+                style="display: none; margin-top: 12pt"
+                class="container"
+            >
+                <h4>Results:</h4>
+                <textarea id="output" readonly> </textarea>
+                <p id="time_area"></p>
+            </div>
+        </main>
+        <noscript
+            >This page contains webassembly and javascript content, please
+            enable javascript in your browser.</noscript
+        >
+        <noscript
+            >This page contains webassembly and javascript content, please
+            enable javascript in your browser.</noscript
+        >
+        <script src="./bootstrap.js"></script>
+    </body>
+</html>
