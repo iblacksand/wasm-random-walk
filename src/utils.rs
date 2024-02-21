@@ -18,7 +18,6 @@ pub fn set_panic_hook() {
 
 #[wasm_bindgen]
 pub fn get_all_neighborhood(network: Vec<String>, genes: Vec<String>, n: usize) -> Vec<String> {
-    log("Building graph");
     log(&network
         .iter()
         .take(10)
@@ -29,16 +28,13 @@ pub fn get_all_neighborhood(network: Vec<String>, genes: Vec<String>, n: usize) 
         .iter()
         .flat_map(|line| line.split_whitespace().take(2))
         .collect::<std::collections::HashSet<_>>();
-    log(&format!("Unique nodes: {:?}", unique_nodes.len()));
     let mut adj_matrix = Array2::zeros((unique_nodes.len(), unique_nodes.len()));
-    log("HERE NOW");
     let mut node_map = std::collections::HashMap::new();
     let mut reverse_node_map = std::collections::HashMap::new();
     for (i, node) in unique_nodes.iter().enumerate() {
         node_map.insert(node.to_string(), i);
         reverse_node_map.insert(i, node.to_string());
     }
-    log("What now?");
     for line in network.iter() {
         if line.is_empty() {
             continue;
@@ -52,7 +48,6 @@ pub fn get_all_neighborhood(network: Vec<String>, genes: Vec<String>, n: usize) 
         adj_matrix[[*a_index, *b_index]] = weight;
         adj_matrix[[*b_index, *a_index]] = weight;
     }
-    log("Running random walk");
     let node_indices: Vec<usize> = genes
         .iter()
         .map(|gene| node_map.get(gene).unwrap())

@@ -15,14 +15,10 @@ pub fn greet() {
 }
 
 #[wasm_bindgen]
-pub fn get_neighborhood(network: JsValue, genes: JsValue, n: JsValue) -> () {
-    log("Running get_neighborhood");
+pub fn get_neighborhood(network: JsValue, genes: JsValue, n: JsValue) -> JsValue {
     let network: Vec<String> = serde_wasm_bindgen::from_value(network).unwrap();
     let genes: Vec<String> = serde_wasm_bindgen::from_value(genes).unwrap();
     let n: usize = serde_wasm_bindgen::from_value(n).unwrap();
-    log("here");
     let neighborhood = utils::get_all_neighborhood(network, genes, n);
-    log("here2");
-    let neighborhood = serde_wasm_bindgen::to_value(&neighborhood).unwrap();
-    log(&format!("Neighborhood: {:?}", neighborhood));
+    serde_wasm_bindgen::to_value(&neighborhood).unwrap()
 }
