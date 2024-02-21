@@ -54,16 +54,3 @@ jobs:
           path: pkg
           token: ${{ secrets.GITHUB_TOKEN }}
           artifact: website_node
-    # <Not provided for brevity>
-    # At a minimum this job should upload artifacts using actions/upload-pages-artifact
-
-    # Deploy job
-    deploy:
-      # Add a dependency to the build job
-      needs: build
-
-      # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-
-      # Specify runner + deployment step
-      runs-on: ubuntu-latest
-      steps:
