@@ -4,9 +4,9 @@ let geneList = [];
 let network = [];
 document.getElementById("genelist").addEventListener("change", getGeneList);
 document.getElementById("network").addEventListener("change", getNetwork);
-document
-  .getElementById("submit")
-  .addEventListener("click", () => start(network, geneList));
+document.getElementById("submit").addEventListener("click", () => {
+  start(network, geneList);
+});
 document.getElementById("example").addEventListener("click", start_example);
 function start_example() {
   fetch("./data/funmap.tsv")
@@ -17,7 +17,6 @@ function start_example() {
         .then((gene_list_text) => {
           let ex_geneList = gene_list_text.split("\n");
           let ex_network = network_text.split("\n");
-          console.log(ex_geneList);
           start(ex_network, ex_geneList);
         });
     });
@@ -36,7 +35,7 @@ function getGeneList() {
   let reader = new FileReader();
   reader.readAsText(file);
   reader.onload = function () {
-    geneList = reader.result.split("\n");
+    geneList = reader.result.split("\n").filter((s) => s != "");
     check_button();
   };
 }
@@ -45,7 +44,7 @@ function getNetwork() {
   let reader = new FileReader();
   reader.readAsText(file);
   reader.onload = function () {
-    network = reader.result.split("\n");
+    network = reader.result.split("\n").filter((s) => s != "");
     check_button();
   };
 }
