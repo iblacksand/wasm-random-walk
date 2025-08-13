@@ -19,7 +19,7 @@ getrandom = { version = "0.2.3", features = ["js"] }
 # code size when deploying.
 console_error_panic_hook = { version = "0.1.7", optional = true }
 
-ndarray = "0.15.6"
+ndarray = "0.16.1"
 serde = { version = "1.0.197", features = ["derive"] }
 serde-wasm-bindgen = "0.6.5"
 
